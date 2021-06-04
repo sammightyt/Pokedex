@@ -1,0 +1,38 @@
+@font-face {
+  font-family: "pokemon";
+  src: url("/fonts/PokemonSolid.ttf");
+}
+
+h1 {
+	text-align: center;
+}
+
+#name {
+	text-transform: capitalize;
+	font-family: Permanent Marker, cursive;
+}
+
+#pImg {
+	width: 30%;
+  margin: 10px auto;
+  display: block;
+  
+}
+
+body {
+  background: #fff url(/container_bg.png);     
+}     
+
+h2{
+	text-transform: capitalize;
+	font-family: Permanent Marker, cursive;
+}
+
+button{
+		width:150px;
+	height:40px;
+	border-radius:50px;
+	background-color:white;
+	border-color:black;
+	font-size:20px;
+}
