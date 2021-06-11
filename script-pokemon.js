@@ -1,6 +1,5 @@
-// var $region;
-
-
+ var $rarity = $(`<h2>Rarity: </h2>`);
+var $region = $(`<h2>Region: </h2>`)
 
 
 
@@ -21,17 +20,61 @@
 // }
 
 
+function configSpecies(data){
+ if(data.is_legendary){
+	 var rar = `legendary`;
+ }else if(data.is_mythical){
+	 var rar = `mythical`;
+ }else{
+	 rar = "No Rarity"
+ }
+
+ if(data.generation.name == "generation-i"){
+	 var reg = "Kanto";
+ }
+ if(data.generation.name == "generation-ii"){
+	 var reg = "Johto";
+ }
+ if(data.generation.name == "generation-iii"){
+	 var reg = "Hoenn";
+ }
+  if(data.generation.name == "generation-iv"){
+	 var reg = "Sinnoh";
+ }
+  if(data.generation.name == "generation-v"){
+	 var reg = "Unova";
+ }
+  if(data.generation.name == "generation-vi"){
+	 var reg = "Kalos";
+ }
+  if(data.generation.name == "generation-vii"){
+	 var reg = "Alola";
+ }
+  if(data.generation.name == "generation-viii"){
+	 var reg = "Galar";
+ }
+
+var hab = data.habitat;
+
+if(hab == null){
+	hab == "No Habitat";
+}
+
+ $rarity.append(rar);
+ $region.append(reg);
+}
+
 
 function showDetails(info){
  var $pokeName = $(`<h1 id="name">${info.name}</h1>`);
 var $holder = $(`<div id="info"></div>`);
-var pokeSrc = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${info.id}.png`;
+var pokeSrc = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${info.id}.png`;
 
 var $pokeImg = $(`<img id="pImg" src="${pokeSrc}"></img>`);
 
-var $height = $(`<h2>Height: ${info.height} ft</h2>`);
+var $height = $(`<h2>Height: ${info.height} decimeters</h2>`);
 
-var $weight = $(`<h2>Weight: ${info.weight} lbs</h2>`);
+var $weight = $(`<h2>Weight: ${info.weight} hectograms</h2>`);
 
 var $types = $(`<h2>Types: </h2>`)
 
@@ -76,8 +119,8 @@ var $items = $(`<h2>Held Items:</h2>`)
 	for (var i = 0; info.moves[i] != null; i++){
     var move = info.moves[i].move.name
 
-
-
+move.replace("-"," ")
+console.log(move)
       var $mov = $(`<li>${move}</li>`)
 
 
@@ -112,6 +155,10 @@ var $items = $(`<h2>Held Items:</h2>`)
 		if(i >= 1){
       item = ", " + item;
 		}  
+
+		item.replace("-"," ")
+
+		console.log(item)
 		
 		$items.append(item)
 	}
@@ -121,7 +168,7 @@ var $items = $(`<h2>Held Items:</h2>`)
 
 	
 
-$holder.append($pokeName).append($pokeImg).append($id).append($height).append($weight).append($stats).append($types).append($abils).append($items).append($moves);
+$holder.append($pokeName).append($pokeImg).append($id).append($region).append($height).append($weight).append($stats).append($types).append($abils).append($items).append($rarity).append($moves);
 
 
 $("body").append($holder);
@@ -143,14 +190,18 @@ const myParam = urlParams.get('p');
       showDetails(pokemon)
     });
 
-
-
+  $.get(`https://pokeapi.co/api/v2/pokemon-species/${myParam}/`).then((species) => {
+		configSpecies(species)
+	})
+  
 
 
   // $.get(`https://pokeapi.co/api/v2/version-group/${1}/`)
   //   .then((vers) => {
   //     getRegGen(vers)
   //   });
+
+	
 
 }
 

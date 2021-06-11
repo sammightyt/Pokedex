@@ -3,7 +3,7 @@
 ### Brought to you by the Code Ninjas(Code Wiz 1)
 ### WebAPI from [PokeAPI](https://pokeapi.co)
 
-This is an interactive Pokedex made in HTML, CSS, and JS(Javascript). The Pokedex uses PokeAPI to get realtime data and uses a image provider on github to get the images.
+This is an interactive Pokedex made in HTML, CSS, and JS(Javascript). The Pokedex uses PokeAPI to get realtime data.
 
 ### Developers:
 * [Sai Samhith Kota](https://replit.com/@sammightyt)

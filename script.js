@@ -4,8 +4,10 @@ loadPokemon()
 });
 
 var pokeArr;
+var pokeArr2;
 var sortDir = 1; // a-z
 // search
+var limit = 100;
 
 
 function search(){
@@ -22,12 +24,20 @@ function search(){
 // 2.) templating
 function displayPokemon(results){
   $("#pokemons").html('');
-	for (var i = 0; results[i] != null; i++) {
+	for (var i = 0; i < limit; i++) {
         var pokemonName = results[i].name;
-        // var pokemonUrl = `https://www.pokemon.com/us/pokedex/${pokemonName}`;
+ 
         
+				var pokemonSrc = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${getImageUrlOfPokemon(pokemonName) + 1}.png`
+				 
 
-				var pokemonSrc = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${getImageUrlOfPokemon(pokemonName) + 1}.png`
+				 if (i >= limit){
+					 limit = i;
+				 }
+
+				
+
+				
         
 				var pokemonUrl = `pokemon.html?p=${pokemonName}`;
 
@@ -63,12 +73,17 @@ function getImageUrlOfPokemon(name) {
 
   // [{name: "pikachu", url: ''}, {}..]
   var pos = findIndexOf(pokeArr, name);
+  
+  if(pos > 897){
+		pos += 9102;
+	}
+
 	return pos
 }
 
 // 1.) Get data from web api
 function loadPokemon() {
-  $.get("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=898")
+  $.get("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=10000")
     .then((data) => {
       // where u decide how to handle the data
       // parsing the data
@@ -100,3 +115,9 @@ function sort() {
   }
 }
 
+function loadMore(){
+		loadPokemon();
+	limit += 1120;
+	$("#pokemons").html("")
+	displayPokemon();
+}
